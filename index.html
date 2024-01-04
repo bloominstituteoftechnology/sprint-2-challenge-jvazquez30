@@ -5,30 +5,105 @@
   <title>Web Sprint 2 Challenge</title>
   <script id="challenge">
     // 👉 CHALLENGE 1
+    // { profile object structure:
+    //   active: boolean, // true for active, false for inactive
+    //   reason: string   // description of inactivity reason, if any
+    // }
+
+
     function profileActivation(profile, reason) {
+      if (profile.active === true && reason === undefined) {
+        return "confirm status manually"
+      } else if (profile.active === true) {
+        delete profile.active
+        profile.active = false
+        profile.reason = reason
+        return profile
+
+      } else if (profile.active !== true) {
+        delete profile.active
+        delete profile.reason
+        profile.active = true
+        return profile
+      }
+      return profile
 
     }
-
+    // [["🟦", "🟥", "🟦"], 
+    //  ["🟦", "🟦", "🟦"], 
+    //  ["🟥", "🟦", "🟥"]]
     // 👉 CHALLENGE 2
+    // Make the x and y coordinates connect with the grid arrays of strings
     function mineSweeper(grid, x, y) {
 
-    }
+      if ((x > 3 || x < 1) || (y > 3 || y < 1)) {
+        return "invalid coordinates"
+      }
+      const element = grid[y - 1][x - 1];
+      if (element === "🟦") {
+        return "🟦 🥳"
+      } else {
+        return "🟥 💀"
+      }
 
+      // for (let i in grid) {
+      //   // console.log(i, x, y)
+      //   let inGrid = grid[i]
+      //   for (let j in inGrid) {
+      //     if (x - 1 === parseInt(j) && y - 1 === parseInt(i)) {
+      //       if (inGrid[j] === "🟦") {
+      //         return "🟦 🥳"
+      //       } else {
+      //         return "🟥 💀"
+      //       }
+      //     }
+      //   }
+      // }
+    }
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      let newObj = obj
+      for (let prop in obj) {
+        if (prop.length > 9) {
+          return "shorten all prop names to 9 chars or less"
+        } else if (obj[prop] === 0) {
+          newObj[prop] = false
+        } else if (obj[prop] === 1) {
+          newObj[prop] = true
+        } else if (obj[prop] === null) {
+          delete newObj[prop]
+        }
 
+      }
+      return newObj
     }
-
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      let newText = []
+      let splitText = text.split(' ')
 
+      for (let i = 0; i < text.length; i++) {
+        for (let j = 0; j < forbidden.length; j++) {
+          if (splitText[i] === forbidden[j]) {
+            splitText[i] = 'x'.repeat(forbidden[j].length)
+          }
+        }
+      }
+      return splitText.join(" ")
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      let first3 = num.slice(0, 3)
+      let middle3 = num.slice(3, 6)
+      let last4 = num.slice(6, 10)
 
+      return `(${first3}) ${middle3}-${last4}`
+        
+        
+
+      
     }
-
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
 
